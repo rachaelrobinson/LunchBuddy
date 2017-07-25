@@ -36,7 +36,7 @@ Doc schema
 @app.route('/')
 def home():
 	if not session.get('logged_in'):
-		return render_template('login.html')
+		return redirect(url_for('login'))
 	else:
 		return "Welcome!"
 
@@ -48,7 +48,7 @@ def register():
 		data = {"_id": request.form['email'],
 				"name": request.form['name'],
 				"password": request.form['password']}
-		session['user'] = request.form['email']
+		return redirect(url_for('login')) 
 		# mongo1.db.test.insert_one(data)
 	else:
 		flash('Missing fields!')
@@ -57,7 +57,7 @@ def register():
 @app.route('/reserve')
 def reserve():
 	if not session.get('logged_in'):
-		return render_template('login.html')
+		return redirect(url_for('login'))
 	# similar format to register
 	# __name__
 	# campus options
@@ -68,16 +68,17 @@ def reserve():
 def login():
 	if 'password' in request.form and 'username' in request.form:
 		session['logged_in'] = True
+		session['user'] = request.form['username']
 	else:
 		flash('password_incorrect!')
 	return home()
 
 @app.route('/profile/{username}')
 def profile(username):
-	if not session.get('logged_in'):
-		return render_template('login.html')
+	if not session.get('logged_in') or not session.get('user'):
+		return redirect(url_for('login'))
 	if session.get('user') != username:
-		return "Access Denied."
+		return redirect(url_for('login'))
 	#display info from registration db, along w/ scheduled dates
 	# username is just email
 	pass
