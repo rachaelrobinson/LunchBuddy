@@ -4,7 +4,7 @@ $(document).ready(function(){
         var lname = $("#inputLName").val();
         var email = $("#inputEmail").val();
 		var psswrd = $("#inputPassword").val();
-        var fullname = fname+lname;
+        var fullname = fname+'_'+lname;
         var newUser = {name:fullname, email: email, password:psswrd};
         var valid = true;
         // TODO: sanitize strings and check for characters/numbers in names
