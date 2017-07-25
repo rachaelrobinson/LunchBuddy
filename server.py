@@ -138,8 +138,8 @@ def profile():
 	print "YA GOT IT"
 	#dummy data to test profiles
 	email = 'rachael@mcrsft.com'
-	reservations = [{'reservation':'July 25th, 1-2pm, North Campus', 'status':'scheduled'}, {'reservation':'July 30th, 1-2pm, West Campus', 'status':'pending'}]
-	name = 'rachaelrobinson'
+	# reservations = {{'reservation':{'info':'July 25th, 1-2pm, North Campus', 'status':'scheduled'}}, {'reservation':{'info':'July 30th, 1-2pm, North Campus', 'status':'pending'}}}
+	name = 'Rachael_Robinson'
 	person = {'name': name, 'email': email}
 	print person
 	#TODO: send username

@@ -1,9 +1,11 @@
 $(document).ready(function(){
 	$("#reserve").click(function(){
 		var pcampus = $("#pcampus option:selected").val();
-        var scampus = $("#scampus option:selected").val();
+        // var scampus = $("#scampus option:selected").val();
+        var scampus = null;
         var ptime = $("#ptime option:selected").val();
-		var stime = $("#stime option:selected").val();
+		// var stime = $("#stime option:selected").val();
+        var stime = null;
         var date = $("#date").val();
         var newReservation = {pcampus: pcampus, scampus: scampus, ptime:ptime, stime:stime, date:date};
         // TODO: check that primary and secondary choices are different and that date is a valid date
