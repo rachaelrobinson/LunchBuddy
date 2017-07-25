@@ -42,10 +42,13 @@ def home():
 
 @app.route('/register')
 def register():
+	if not session.get('logged_in'):
+		return render_template('login.html')
 	if 'name' in request.form and 'email' in request.form and 'password' in request.form:
 		data = {"_id": request.form['email'],
 				"name": request.form['name'],
 				"password": request.form['password']}
+		session['user'] = request.form['email']
 		# mongo1.db.test.insert_one(data)
 	else:
 		flash('Missing fields!')
@@ -53,6 +56,8 @@ def register():
 
 @app.route('/reserve')
 def reserve():
+	if not session.get('logged_in'):
+		return render_template('login.html')
 	# similar format to register
 	# __name__
 	# campus options
@@ -69,6 +74,10 @@ def login():
 
 @app.route('/profile/{username}')
 def profile(username):
+	if not session.get('logged_in'):
+		return render_template('login.html')
+	if session.get('user') != username:
+		return "Access Denied."
 	#display info from registration db, along w/ scheduled dates
 	# username is just email
 	pass
