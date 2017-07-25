@@ -1,14 +1,13 @@
 from flask import Flask
-from flask import Flask, flash, redirect, render_template, request, session, abort, jsonify
+from flask import Flask, flash, redirect, render_template, request, session, abort, jsonify, url_for
 from flask_pymongo import PyMongo
 import os
 app = Flask(__name__)
-# with app.app_context():
-# 	mongo1 = PyMongo(app)
-# 	mongo1.db.createCollection('test')
-# 	app.config['MONGO_DBNAME'] = 'test'
-# 	app.config['MONGO2_DBNAME'] = 'test_two'
-# 	mongo2 = PyMongo(app, config_prefix='MONGO2')
+with app.app_context():
+	mongo1 = PyMongo(app)
+	app.config['MONGO_DBNAME'] = 'users'
+	app.config['MONGO2_DBNAME'] = 'timeslots'
+	mongo2 = PyMongo(app, config_prefix='MONGO2')
 
 """
 Region:
@@ -33,8 +32,22 @@ Doc schema
 # 	mongo1.db.test.insert_one(post)
 # 	return 'made it'
 
+@app.route('/dbtest')
+def db_test():
+	# post = {"_id": 'W-12/1-1',
+	# 	"name": 'Leela',
+	# 	"sec_opt":['W2', 'E1']}
+	# result = mongo1.db.users.insert_one(post)
+	post2 = {"_id": 'test2',
+			 "name": 'temp',
+			 "reg": 'w3'}
+	result2 = mongo2.db.junk.insert_one(post2)
+	return result2.inserted_id
+	# return 'made it'
+
 @app.route('/')
 def home():
+	# We should have some option to redirect to /register if they don't have an account
 	if not session.get('logged_in'):
 		return render_template('index.html')
 	else:
@@ -56,14 +69,13 @@ def login():
 			return jsonify([{'status':400}])
 	elif request.method == 'GET':
 		if session.get('logged_in'):
-			return redirect(url_for('/reserve'))
+			return redirect(url_for('reserve'))
 		else:
 			return render_template('login.html')
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
 	if request.method == 'POST':
-		print "HERE"
 		# if not session.get('logged_in'):
 		# 	return render_template('login.html')
 		if 'name' in request.form and 'email' in request.form and 'password' in request.form:
@@ -73,7 +85,10 @@ def register():
 			data = {"_id": request.form['email'],
 					"name": request.form['name'],
 					"password": request.form['password']}
+			# check to see if user already registered, if they are rn it'll over out
+			mongo1.db.users.insert_one(data)
 			session['user'] = request.form['email']
+			# return redirect(url_for('profile'))
 			# mongo1.db.test.insert_one(data)
 			#TODO: add user to session
 			return jsonify([{'status':200}])
@@ -100,13 +115,24 @@ def reserve():
 		# what data do you want and how?
 		# if successful add to DB:
 		return jsonify([{'status':200}])
+	# similar format to register
+	# __name__
+	# campus options
+	# schedule
+
+@app.route('/logout', methods=['POST'])
+def logout():
+	if request.method == 'POST':
+		session['user'] = ""
+		session['logged_in'] = False
+		return redirect(url_for('home'))
 
 @app.route('/profile/{username}')
 def profile(username):
-	if not session.get('logged_in'):
-		return render_template('login.html')
+	if not session.get('logged_in') or not session.get('user'):
+		return redirect(url_for('home'))
 	if session.get('user') != username:
-		return "Access Denied."
+		return redirect(url_for('home'))
 	#display info from registration db, along w/ scheduled dates
 	# username is just email
 	pass
