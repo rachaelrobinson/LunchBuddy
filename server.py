@@ -40,19 +40,22 @@ def home():
 	else:
 		return "Welcome!"
 
-@app.route('/register')
+@app.route('/register', methods=['GET', 'POST'])
 def register():
-	if not session.get('logged_in'):
-		return render_template('login.html')
-	if 'name' in request.form and 'email' in request.form and 'password' in request.form:
-		data = {"_id": request.form['email'],
-				"name": request.form['name'],
-				"password": request.form['password']}
-		session['user'] = request.form['email']
-		# mongo1.db.test.insert_one(data)
+	if request.method == 'POST':
+		if not session.get('logged_in'):
+			return render_template('login.html')
+		if 'name' in request.form and 'email' in request.form and 'password' in request.form:
+			data = {"_id": request.form['email'],
+					"name": request.form['name'],
+					"password": request.form['password']}
+			session['user'] = request.form['email']
+			# mongo1.db.test.insert_one(data)
+		else:
+			flash('Missing fields!')
+		#name, email, password
 	else:
-		flash('Missing fields!')
-	#name, email, password
+		return render_template('signup.html')
 
 @app.route('/reserve')
 def reserve():
