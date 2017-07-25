@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+	    <meta charset="UTF-8">
+	    <title>LunchBuddy</title>
+	    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+	    <script src="login.js"></script>
+<!-- 	  <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
+ -->      <!-- Latest compiled and minified CSS -->
+      <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"> -->
+
+      <!-- Optional theme -->
+      <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous"> -->
+		<!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+	    <link rel="stylesheet" href="{{ url_for('static', filename = 'style.css') }}"></link>-->
+      <!-- Latest compiled and minified JavaScript -->
+	</head>
+	<body>
+			<h1>Find a buddy</h1>
+			<form onsubmit=findlunch()>
+				Primary Campus:<br>
+				<select name="pcampus" form="pcampus">
+				 	<option value="north">North Campus</option>
+				 	<option value="west">East Campus</option>
+				 	<option value="east">West Campus</option>
+				  	<option value="bellevue">Bellevue Campus</option>
+				</select><br/>
+				Secondary Campus:<br>
+				<select name="scampus" form="scampus">
+				 	<option value="north">North Campus</option>
+				 	<option value="west">East Campus</option>
+				 	<option value="east">West Campus</option>
+				  	<option value="bellevue">Bellevue Campus</option>
+				</select><br/>
+				Date:<br/>
+				<input type="date" name="bday"><br/>
+				Primary Time:<br/>
+				<select name="ptime" form="ptime">
+				 	<option value=1>11-12</option>
+				 	<option value=2>12-1</option>
+				 	<option value=3>1-2</option>
+				</select><br/>
+				Secondary Time:<br/>
+				<select name="stime" form="stime">
+				 	<option value=1>11-12</option>
+				 	<option value=2>12-1</option>
+				 	<option value=3>1-2</option>
+				</select><br/>
+				<input type="submit" value="Find">
+			</form>
+
+	</body>
+</html>
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.13.2/react.min.js"></script>
+ --><script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.13.2/react.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.13.2/JSXTransformer.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
