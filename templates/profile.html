@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+	    <meta charset="UTF-8">
+	    <title>LunchBuddy</title>
+	    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+	     
+<!-- 	  <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
+ -->      <!-- Latest compiled and minified CSS -->
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous" />
+	 	<link rel="stylesheet" href="{{ url_for('static', filename = 'style.css') }}"></link>
+	</head>
+	<body>
+		<div class="container text-center" id="profile">
+			
+			<form class="form-signup">
+				<h1 class="form-signin-heading">Sign up to find your next lunch buddy</h1>
+				<label for="inputFName" class="sr-only">First Name</label>
+        		<input type="firstname" id="inputFName" class="form-control" placeholder="First Name" required autofocus>
+				<br/>
+				<label for="inputLName" class="sr-only">Last Name</label>
+        		<input type="lastname" id="inputLName" class="form-control" placeholder="Last Name" required autofocus>
+				<br/>
+				<label for="inputEmail" class="sr-only">Email address</label>
+        		<input type="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
+				<br/>
+				<label for="inputPassword" class="sr-only">Password</label>
+        		<input type="password" id="inputPassword" class="form-control" placeholder="Password" required>
+				<br/>
+				<button class="btn btn-lg btn-primary btn-block" type="submit" id="signupbtn">Sign up</button>
+			</form>
+		</div>
+	</body>
+</html>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.13.2/JSXTransformer.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script type="text/javascript" src="{{ url_for('static', filename = 'signup.js') }}"></script>
