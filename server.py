@@ -111,8 +111,15 @@ def reserve():
 		# campus options
 		# schedule
 	else:
-		# TODO: gather all info and add to db
-		# what data do you want and how?
+		print request.form['date']
+		print request.form['pcampus']
+		print request.form['stime']
+		# Things you get back from form:
+			#pcampus: (N, E, W, B)
+			#scampus: (N, E, W, B)
+			#ptime: (0, 1, 2) 0=11-12, 1=12-1, 2=1-2
+			#stime: (0, 1, 2)
+			#date: (YYYY-MM-DD)
 		# if successful add to DB:
 		return jsonify([{'status':200}])
 	# similar format to register

@@ -1,32 +1,23 @@
 $(document).ready(function(){
-	$("#signupbtn").click(function(){
-    console.log("HERE");
-		var fname = $("#inputFName").val();
-        var lname = $("#inputLName").val();
-        var email = $("#inputEmail").val();
-		var psswrd = $("#inputPassword").val();
-		console.log(fname);
-        console.log(lname);
-        console.log(email);
-		console.log(psswrd);
-        var fullname = fname+lname;
-        console.log(fullname);
-        var newUser = {name:fullname, email: email, password:psswrd};
-        console.log(newUser);
-        var valid = true;
-        // TODO: sanitize strings and check for characters/numbers in names
-        for (var key in newUser){
-            if (newUser[key] == undefined || newUser[key] == ""){
-                valid = false;
-            }
-        }
-        if (valid == false){
-            alert("Please fill in each section of the form");
-        } else{
-            $.ajax({
+    console.log("YO YO YO");
+	$("#reserve").click(function(){
+        console.log("HELLO");
+		var pcampus = $("#pcampus option:selected").val();
+        var scampus = $("#scampus option:selected").val();
+        var ptime = $("#ptime option:selected").val();
+		var stime = $("#stime option:selected").val();
+        var date = $("#date").val();
+		console.log(pcampus);
+        console.log(scampus);
+        console.log(ptime);
+		console.log(stime);
+        console.log(date);
+        var newReservation = {pcampus: pcampus, scampus: scampus, ptime:ptime, stime:stime, date:date};
+        // TODO: check that primary and secondary choices are different and that date is a valid date
+        $.ajax({
                 type: 'POST',
-                url: '/register',
-                data: newUser,
+                url: '/reserve',
+                data: newReservation,
                 // headers: {
                 //     'Cache-Control':'max-age=500'
                 // },
@@ -40,7 +31,6 @@ $(document).ready(function(){
                         // TODO: get message from backend about why we couldn't add user
                     }
                 }
-            });
-		}
+        });
     });
 });

@@ -1,6 +1,5 @@
 $(document).ready(function(){
 	$("#signupbtn").click(function(){
-    console.log("HERE");
 		var fname = $("#inputFName").val();
         var lname = $("#inputLName").val();
         var email = $("#inputEmail").val();
@@ -26,7 +25,7 @@ $(document).ready(function(){
                 // },
                 success: function(result) {
                     if(result[0].status == 200){
-                        window.location.href = "/reserve"
+                    window.location.href = "/reserve"
                     }
                     else if (result[0].status == 400){
                         alert("Oops something went wrong! We could not make you an account.");
