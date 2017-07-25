@@ -32,6 +32,19 @@ Doc schema
 # 	mongo1.db.test.insert_one(post)
 # 	return 'made it'
 
+@app.route('/dbtest')
+def db_test():
+	# post = {"_id": 'W-12/1-1',
+	# 	"name": 'Leela',
+	# 	"sec_opt":['W2', 'E1']}
+	# result = mongo1.db.users.insert_one(post)
+	post2 = {"_id": 'test2',
+			 "name": 'temp',
+			 "reg": 'w3'}
+	result2 = mongo2.db.junk.insert_one(post2)
+	return result2.inserted_id
+	# return 'made it'
+
 @app.route('/')
 def home():
 	# We should have some option to redirect to /register if they don't have an account
@@ -88,8 +101,20 @@ def register():
 
 @app.route('/reserve', methods=['GET', 'POST'])
 def reserve():
-	if not session.get('logged_in'):
-		return redirect(url_for('home'))
+	if request.method == 'GET':
+		if session.get('logged_in'):
+			return render_template("reserve.html")
+		else:
+			return render_template('login.html')
+		# similar format to register
+		# __name__
+		# campus options
+		# schedule
+	else:
+		# TODO: gather all info and add to db
+		# what data do you want and how?
+		# if successful add to DB:
+		return jsonify([{'status':200}])
 	# similar format to register
 	# __name__
 	# campus options
