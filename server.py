@@ -1,5 +1,5 @@
 from flask import Flask
-from flask import Flask, flash, redirect, render_template, request, session, abort
+from flask import Flask, flash, redirect, render_template, request, session, abort, jsonify
 from flask_pymongo import PyMongo
 import os
 app = Flask(__name__)
@@ -38,7 +38,27 @@ def home():
 	if not session.get('logged_in'):
 		return render_template('index.html')
 	else:
-		return "Welcome!"
+		return redirect(url_for('/reserve'))
+
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+	if request.method == 'POST':
+		if 'password' in request.form and 'username' in request.form:
+			print "HERE"
+			session['logged_in'] = True
+			#TODO: Add to database
+			print request.form['password']
+			print request.form['username']
+			
+			return jsonify([{'status':200}])
+		else:
+			flash('password_incorrect!')
+			return jsonify([{'status':400}])
+	elif request.method == 'GET':
+		if session.get('logged_in'):
+			return redirect(url_for('/reserve'))
+		else:
+			return render_template('login.html')
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
@@ -57,26 +77,21 @@ def register():
 	else:
 		return render_template('signup.html')
 
-@app.route('/reserve')
+@app.route('/reserve', methods=['GET', 'POST'])
 def reserve():
-	if not session.get('logged_in'):
-		return render_template('login.html')
-	# similar format to register
-	# __name__
-	# campus options
-	# schedule
-	pass
-
-@app.route('/login', methods=['GET', 'POST'])
-def login():
-	if request.method == 'POST':
-		if 'password' in request.form and 'username' in request.form:
-			session['logged_in'] = True
+	if request.method == 'GET':
+		if session.get('logged_in'):
+			return render_template("reserve.html")
 		else:
-			flash('password_incorrect!')
-		return home()
+			return render_template('login.html')
+		# similar format to register
+		# __name__
+		# campus options
+		# schedule
 	else:
-		return render_template('login.html')
+		# TODO: gather all info and add to db
+		# if successful add to DB:
+		return jsonify([{'status':200}])
 
 @app.route('/profile/{username}')
 def profile(username):
