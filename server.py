@@ -133,6 +133,13 @@ def profile(username):
 		return redirect(url_for('home'))
 	if session.get('user') != username:
 		return redirect(url_for('home'))
+	else:
+		#dummy data to test profiles
+		email = 'rachael@mcrsft.com'
+		reservations = [{reservation:'July 25th, 1-2pm, North Campus', status:'scheduled'}, {reservation:'July 30th, 1-2pm, West Campus', status:'pending'}]
+		name = 'rachaelrobinson'
+		#TODO: send username
+		return render_template("profile.html", email=email, reservations=reservations, name=name)
 	#display info from registration db, along w/ scheduled dates
 	# username is just email
 	pass

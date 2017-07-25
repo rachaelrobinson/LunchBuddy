@@ -5,8 +5,14 @@ $(document).ready(function(){
         var lname = $("#inputLName").val();
         var email = $("#inputEmail").val();
 		var psswrd = $("#inputPassword").val();
+		console.log(fname);
+        console.log(lname);
+        console.log(email);
+		console.log(psswrd);
         var fullname = fname+lname;
+        console.log(fullname);
         var newUser = {name:fullname, email: email, password:psswrd};
+        console.log(newUser);
         var valid = true;
         // TODO: sanitize strings and check for characters/numbers in names
         for (var key in newUser){
@@ -26,7 +32,8 @@ $(document).ready(function(){
                 // },
                 success: function(result) {
                     if(result[0].status == 200){
-                        window.location.href = "/reserve"
+                        console.log("YOU LOGGED IN")
+                window.location.href = "/reserve"
                     }
                     else if (result[0].status == 400){
                         alert("Oops something went wrong! We could not make you an account.");
