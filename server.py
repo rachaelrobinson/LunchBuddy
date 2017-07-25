@@ -90,6 +90,7 @@ def reserve():
 		# schedule
 	else:
 		# TODO: gather all info and add to db
+		# what data do you want and how?
 		# if successful add to DB:
 		return jsonify([{'status':200}])
 
