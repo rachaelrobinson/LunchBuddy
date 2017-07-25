@@ -1,14 +1,13 @@
 from flask import Flask
-from flask import Flask, flash, redirect, render_template, request, session, abort, url_for
+from flask import Flask, flash, redirect, render_template, request, session, abort, jsonify, url_for
 from flask_pymongo import PyMongo
 import os
 app = Flask(__name__)
-# with app.app_context():
-# 	mongo1 = PyMongo(app)
-# 	mongo1.db.createCollection('test')
-# 	app.config['MONGO_DBNAME'] = 'test'
-# 	app.config['MONGO2_DBNAME'] = 'test_two'
-# 	mongo2 = PyMongo(app, config_prefix='MONGO2')
+with app.app_context():
+	mongo1 = PyMongo(app)
+	app.config['MONGO_DBNAME'] = 'users'
+	app.config['MONGO2_DBNAME'] = 'timeslots'
+	mongo2 = PyMongo(app, config_prefix='MONGO2')
 
 """
 Region:
@@ -35,26 +34,52 @@ Doc schema
 
 @app.route('/')
 def home():
+	# We should have some option to redirect to /register if they don't have an account
 	if not session.get('logged_in'):
-		return render_template('login.html')
+		return render_template('index.html')
 	else:
-		return "Welcome!"
+		return redirect(url_for('/reserve'))
 
-@app.route('/register')
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+	if request.method == 'POST':
+		if 'password' in request.form and 'username' in request.form:
+			print "HERE"
+			session['logged_in'] = True
+			#TODO: Add to database
+			print request.form['password']
+			print request.form['username']
+			
+			return jsonify([{'status':200}])
+		else:
+			flash('password_incorrect!')
+			return jsonify([{'status':400}])
+	elif request.method == 'GET':
+		if session.get('logged_in'):
+			return redirect(url_for('reserve'))
+		else:
+			return render_template('login.html')
+
+@app.route('/register', methods=['GET', 'POST'])
 def register():
-	if not session.get('logged_in'):
-		return redirect(url_for('home')) 
-	if 'name' in request.form and 'email' in request.form and 'password' in request.form:
-		data = {"_id": request.form['email'],
-				"name": request.form['name'],
-				"password": request.form['password']}
-		return redirect(url_for('home')) 
-		# mongo1.db.test.insert_one(data)
+	if request.method == 'POST':
+		# if not session.get('logged_in'):
+		# 	return redirect(url_for('home'))
+		if 'name' in request.form and 'email' in request.form and 'password' in request.form:
+			data = {"_id": request.form['email'],
+					"name": request.form['name'],
+					"password": request.form['password']}
+			# check to see if user already registered, if they are rn it'll over out
+			mongo1.db.users.insert_one(data)
+			session['user'] = request.form['email']
+			return redirect(url_for('profile'))
+		else:
+			flash('Missing fields!')
+		#name, email, password
 	else:
-		flash('Missing fields!')
-	#name, email, password
+		return render_template('signup.html')
 
-@app.route('/reserve')
+@app.route('/reserve', methods=['GET', 'POST'])
 def reserve():
 	if not session.get('logged_in'):
 		return redirect(url_for('home'))
@@ -62,17 +87,6 @@ def reserve():
 	# __name__
 	# campus options
 	# schedule
-	pass
-
-@app.route('/login', methods=['POST'])
-def login():
-	if request.method == 'POST':
-		if 'password' in request.form and 'username' in request.form:
-			session['logged_in'] = True
-			session['user'] = request.form['username']
-		else:
-			flash('password_incorrect!')
-		return home()
 
 @app.route('/logout', methods=['POST'])
 def logout():
@@ -80,6 +94,7 @@ def logout():
 		session['user'] = ""
 		session['logged_in'] = False
 		return redirect(url_for('home'))
+
 @app.route('/profile/{username}')
 def profile(username):
 	if not session.get('logged_in') or not session.get('user'):

@@ -8,24 +8,19 @@
 <!-- 	  <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
  -->      <!-- Latest compiled and minified CSS -->
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous" />
+     	<!-- <link href="style.css" type="text/css" rel="stylesheet" /> -->
 	 	<link rel="stylesheet" href="{{ url_for('static', filename = 'style.css') }}"></link>
 	</head>
 	<body>
-		<div class="container text-center" id="login">
-			
-			<form class="form-signin" method="post">
-				<h1 class="form-signin-heading">Login </h1>
-				<label for="inputEmail" class="sr-only">Email address</label>
-        		<input type="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
-				<br/>
-				<label for="inputPassword" class="sr-only">Password</label>
-        		<input type="password" id="inputPassword" class="form-control" placeholder="Password" required>
-				<br/>
-				<button class="btn btn-lg btn-primary btn-block" type="submit" id="loginbtn">Sign in</button>
-			</form>
+		<div class="container text-center" id="signup">
+			<h1>Welcome to LunchBuddy!</h1>
+			<h3>Find your next lunch buddy and meet someone new!</h3>
+			<button class="btn btn-lg btn-primary btn-home"type="login" id="goLoginbtn">Login</button>
+			<button class="btn btn-lg btn-primary btn-home"type="register" id="goSignupbtn">Register</button>
 		</div>
 	</body>
 </html>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.13.2/JSXTransformer.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-<script type="text/javascript" src="{{ url_for('static', filename = 'login.js') }}"></script>
+<!-- <script src="signup.js"></script> -->
+<script type="text/javascript" src="{{ url_for('static', filename = 'home.js') }}"></script>
