@@ -23,7 +23,6 @@ $(document).ready(function(){
         			else if (result[0].status == 400){
         				alert("YOU DIDN'T LOG IN");
         			}
-        		  
         		}
       		});
 		}

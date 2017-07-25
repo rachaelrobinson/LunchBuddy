@@ -63,16 +63,23 @@ def login():
 @app.route('/register', methods=['GET', 'POST'])
 def register():
 	if request.method == 'POST':
-		if not session.get('logged_in'):
-			return render_template('login.html')
+		print "HERE"
+		# if not session.get('logged_in'):
+		# 	return render_template('login.html')
 		if 'name' in request.form and 'email' in request.form and 'password' in request.form:
+			print request.form['name']
+			print request.form['password']
+			print request.form['email']
 			data = {"_id": request.form['email'],
 					"name": request.form['name'],
 					"password": request.form['password']}
 			session['user'] = request.form['email']
 			# mongo1.db.test.insert_one(data)
+			#TODO: add user to session
+			return jsonify([{'status':200}])
 		else:
 			flash('Missing fields!')
+			return jsonify([{'status':400}])
 		#name, email, password
 	else:
 		return render_template('signup.html')
