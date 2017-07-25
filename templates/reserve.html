@@ -25,7 +25,7 @@
 				<div id="navbar" class="navbar-collapse collapse">
 					<ul class="nav navbar-nav">
 						<li class="active"><a href="#">Home</a></li>
-						<li><a href="#">Profile</a></li>
+						<li><a href="/profile">Profile</a></li>
 					</ul>
 					<ul class="nav navbar-nav navbar-right">
 						<li><a href="/logout">Logout</a></li>
@@ -38,38 +38,39 @@
 			<form class="form-signup">
 				<h1 class="form-signin-heading">Find a buddy!</h1>
 				<label>Primary Campus:</label>
-  				<select class="form-control" id="sel1">
+  				<select class="form-control" id="pcampus">
 				    <option value="N">North Campus</option>
 				 	<option value="W">East Campus</option>
 				 	<option value="E">West Campus</option>
 				  	<option value="B">Bellevue Campus</option>
 				</select>
 				<label>Secondary Campus:</label>
-				<select class="form-control" id="sel1">
+				<select class="form-control" id="scampus">
 				    <option value="N">North Campus</option>
 				 	<option value="W">East Campus</option>
 				 	<option value="E">West Campus</option>
 				  	<option value="B">Bellevue Campus</option>
 				</select>
 				<label>Date:</label><br/>
-				<input type="date" name="bday"></input><br/>
+				<input type="date" name="day" id="date"></input><br/>
 				<label>Primary Time:</label><br/>
-				<select name="ptime" form="ptime">
+				<select name="ptime" form="ptime" id="ptime">
 				 	<option value=0>11-12</option>
 				 	<option value=1>12-1</option>
 				 	<option value=2>1-2</option>
 				</select><br/>
 				<label>Secondary Time:</label><br/>
-				<select name="stime" form="stime">
+				<select name="stime" form="stime" id="stime">
 				 	<option value=0>11-12</option>
 				 	<option value=1>12-1</option>
 				 	<option value=2>1-2</option>
 				</select> <br/><br/>
-				<button class="btn btn-lg btn-primary btn-block" type="submit" id="signupbtn">Find Me A Buddy!</button>
+				<button class="btn btn-lg btn-primary btn-block" type="submit" id="reserve">Find Me A Buddy!</button>
 			</form>
 	</body>
 </html>
 <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.13.2/react.min.js"></script>
- --><script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.13.2/react.js"></script>
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.13.2/react.js"></script>-->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.13.2/JSXTransformer.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script type="text/javascript" src="{{ url_for('static', filename = 'reserve.js') }}"></script>

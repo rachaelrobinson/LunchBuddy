@@ -102,24 +102,31 @@ def register():
 
 @app.route('/reserve', methods=['GET', 'POST'])
 def reserve():
-    if request.method == 'GET':
-        if session.get('logged_in'):
-            return render_template("reserve.html")
-        else:
-            return render_template('login.html')
-        # similar format to register
-        # __name__
-        # campus options
-        # schedule
-    else:
-        # TODO: gather all info and add to db
-        # what data do you want and how?
-        # if successful add to DB:
-        return jsonify([{'status':200}])
-    # similar format to register
-    # __name__
-    # campus options
-    # schedule
+	if request.method == 'GET':
+		if session.get('logged_in'):
+			return render_template("reserve.html")
+		else:
+			return render_template('login.html')
+		# similar format to register
+		# __name__
+		# campus options
+		# schedule
+	else:
+		print request.form['date']
+		print request.form['pcampus']
+		print request.form['stime']
+		# Things you get back from form:
+			#pcampus: (N, E, W, B)
+			#scampus: (N, E, W, B)
+			#ptime: (0, 1, 2) 0=11-12, 1=12-1, 2=1-2
+			#stime: (0, 1, 2)
+			#date: (YYYY-MM-DD)
+		# if successful add to DB:
+		return jsonify([{'status':200}])
+	# similar format to register
+	# __name__
+	# campus options
+	# schedule
 
 @app.route('/logout', methods=['POST'])
 def logout():
@@ -130,13 +137,20 @@ def logout():
 
 @app.route('/profile/{username}')
 def profile(username):
-    if not session.get('logged_in') or not session.get('user'):
-        return redirect(url_for('home'))
-    if session.get('user') != username:
-        return redirect(url_for('home'))
-    #display info from registration db, along w/ scheduled dates
-    # username is just email
-    pass
+	if not session.get('logged_in') or not session.get('user'):
+		return redirect(url_for('home'))
+	if session.get('user') != username:
+		return redirect(url_for('home'))
+	else:
+		#dummy data to test profiles
+		email = 'rachael@mcrsft.com'
+		reservations = [{reservation:'July 25th, 1-2pm, North Campus', status:'scheduled'}, {reservation:'July 30th, 1-2pm, West Campus', status:'pending'}]
+		name = 'rachaelrobinson'
+		#TODO: send username
+		return render_template("profile.html", email=email, reservations=reservations, name=name)
+	#display info from registration db, along w/ scheduled dates
+	# username is just email
+	pass
 
 @app.route('/lunchform', methods=['POST'])
 def lunchImport():
