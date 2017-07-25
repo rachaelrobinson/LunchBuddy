@@ -1,5 +1,5 @@
 from flask import Flask
-from flask import Flask, flash, redirect, render_template, request, session, abort
+from flask import Flask, flash, redirect, render_template, request, session, abort, url_for
 from flask_pymongo import PyMongo
 import os
 app = Flask(__name__)
@@ -36,19 +36,19 @@ Doc schema
 @app.route('/')
 def home():
 	if not session.get('logged_in'):
-		return redirect(url_for('login'))
+		return render_template('login.html')
 	else:
 		return "Welcome!"
 
 @app.route('/register')
 def register():
 	if not session.get('logged_in'):
-		return render_template('login.html')
+		return redirect(url_for('home')) 
 	if 'name' in request.form and 'email' in request.form and 'password' in request.form:
 		data = {"_id": request.form['email'],
 				"name": request.form['name'],
 				"password": request.form['password']}
-		return redirect(url_for('login')) 
+		return redirect(url_for('home')) 
 		# mongo1.db.test.insert_one(data)
 	else:
 		flash('Missing fields!')
@@ -57,7 +57,7 @@ def register():
 @app.route('/reserve')
 def reserve():
 	if not session.get('logged_in'):
-		return redirect(url_for('login'))
+		return redirect(url_for('home'))
 	# similar format to register
 	# __name__
 	# campus options
@@ -66,19 +66,26 @@ def reserve():
 
 @app.route('/login', methods=['POST'])
 def login():
-	if 'password' in request.form and 'username' in request.form:
-		session['logged_in'] = True
-		session['user'] = request.form['username']
-	else:
-		flash('password_incorrect!')
-	return home()
+	if request.method == 'POST':
+		if 'password' in request.form and 'username' in request.form:
+			session['logged_in'] = True
+			session['user'] = request.form['username']
+		else:
+			flash('password_incorrect!')
+		return home()
 
+@app.route('/logout', methods=['POST'])
+def logout():
+	if request.method == 'POST':
+		session['user'] = ""
+		session['logged_in'] = False
+		return redirect(url_for('home'))
 @app.route('/profile/{username}')
 def profile(username):
 	if not session.get('logged_in') or not session.get('user'):
-		return redirect(url_for('login'))
+		return redirect(url_for('home'))
 	if session.get('user') != username:
-		return redirect(url_for('login'))
+		return redirect(url_for('home'))
 	#display info from registration db, along w/ scheduled dates
 	# username is just email
 	pass
