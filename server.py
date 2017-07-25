@@ -57,7 +57,6 @@ def home():
 def login():
 	if request.method == 'POST':
 		if 'password' in request.form and 'username' in request.form:
-			print "HERE"
 			session['logged_in'] = True
 			#TODO: Add to database
 			print request.form['password']
@@ -127,29 +126,42 @@ def reserve():
 	# campus options
 	# schedule
 
-@app.route('/logout', methods=['POST'])
+@app.route('/logout', methods=['GET'])
 def logout():
-	if request.method == 'POST':
+	if request.method == 'GET':
 		session['user'] = ""
 		session['logged_in'] = False
 		return redirect(url_for('home'))
 
-@app.route('/profile/{username}')
-def profile(username):
-	if not session.get('logged_in') or not session.get('user'):
-		return redirect(url_for('home'))
-	if session.get('user') != username:
-		return redirect(url_for('home'))
-	else:
-		#dummy data to test profiles
-		email = 'rachael@mcrsft.com'
-		reservations = [{reservation:'July 25th, 1-2pm, North Campus', status:'scheduled'}, {reservation:'July 30th, 1-2pm, West Campus', status:'pending'}]
-		name = 'rachaelrobinson'
-		#TODO: send username
-		return render_template("profile.html", email=email, reservations=reservations, name=name)
+@app.route('/profile')
+def profile():
+	print "YA GOT IT"
+	#dummy data to test profiles
+	email = 'rachael@mcrsft.com'
+	reservations = [{'reservation':'July 25th, 1-2pm, North Campus', 'status':'scheduled'}, {'reservation':'July 30th, 1-2pm, West Campus', 'status':'pending'}]
+	name = 'rachaelrobinson'
+	person = {'name': name, 'email': email}
+	print person
+	#TODO: send username
+	return render_template("profile.html", user=person)
 	#display info from registration db, along w/ scheduled dates
 	# username is just email
 	pass
+	# if not session.get('logged_in') or not session.get('user'):
+	# 	return redirect(url_for('home'))
+	# if session.get('user') != username:
+	# 	return redirect(url_for('home'))
+	# else:
+	# 	print "YA GOT IT"
+	# 	#dummy data to test profiles
+	# 	email = 'rachael@mcrsft.com'
+	# 	reservations = [{reservation:'July 25th, 1-2pm, North Campus', status:'scheduled'}, {reservation:'July 30th, 1-2pm, West Campus', status:'pending'}]
+	# 	name = 'rachaelrobinson'
+	# 	#TODO: send username
+	# 	return render_template("profile.html", email=email, reservations=reservations, name=name)
+	# #display info from registration db, along w/ scheduled dates
+	# # username is just email
+	# pass
 
 if __name__ == "__main__":
 	app.secret_key = os.urandom(12)
