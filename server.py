@@ -64,17 +64,24 @@ def login():
 def register():
 	if request.method == 'POST':
 		# if not session.get('logged_in'):
-		# 	return redirect(url_for('home'))
+		# 	return render_template('login.html')
 		if 'name' in request.form and 'email' in request.form and 'password' in request.form:
+			print request.form['name']
+			print request.form['password']
+			print request.form['email']
 			data = {"_id": request.form['email'],
 					"name": request.form['name'],
 					"password": request.form['password']}
 			# check to see if user already registered, if they are rn it'll over out
 			mongo1.db.users.insert_one(data)
 			session['user'] = request.form['email']
-			return redirect(url_for('profile'))
+			# return redirect(url_for('profile'))
+			# mongo1.db.test.insert_one(data)
+			#TODO: add user to session
+			return jsonify([{'status':200}])
 		else:
 			flash('Missing fields!')
+			return jsonify([{'status':400}])
 		#name, email, password
 	else:
 		return render_template('signup.html')
