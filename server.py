@@ -36,7 +36,7 @@ Doc schema
 @app.route('/')
 def home():
 	if not session.get('logged_in'):
-		return render_template('login.html')
+		return render_template('index.html')
 	else:
 		return "Welcome!"
 
@@ -64,13 +64,16 @@ def reserve():
 	# schedule
 	pass
 
-@app.route('/login', methods=['POST'])
+@app.route('/login', methods=['GET', 'POST'])
 def login():
-	if 'password' in request.form and 'username' in request.form:
-		session['logged_in'] = True
+	if request.method == 'POST':
+		if 'password' in request.form and 'username' in request.form:
+			session['logged_in'] = True
+		else:
+			flash('password_incorrect!')
+		return home()
 	else:
-		flash('password_incorrect!')
-	return home()
+		return render_template('login.html')
 
 @app.route('/profile/{username}')
 def profile(username):
