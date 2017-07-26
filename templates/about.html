@@ -24,9 +24,9 @@
 				</div>
 				<div id="navbar" class="navbar-collapse collapse">
 					<ul class="nav navbar-nav">
-						<li class="active"><a href="#">Home</a></li>
+						<li><a href="#">Home</a></li>
 						<li><a href="/profile">Profile</a></li>
-						<li><a href="/about">About</a></li>
+						<li class="active"><a href="/about">About</a></li>
 					</ul>
 					<ul class="nav navbar-nav navbar-right">
 						<li><a href="/logout">Logout</a></li>
@@ -35,40 +35,10 @@
 			</div><!--/.container-fluid -->
 		</nav>
 
-		<div class="container text-aligned" id="signup">
-			<form class="form-signup">
-				<h1 class="form-signin-heading">Find a buddy!</h1>
-				<label>Campus:</label>
-  				<select class="form-control" id="pcampus">
-				    <option value="N">North Campus</option>
-				 	<option value="W">East Campus</option>
-				 	<option value="E">West Campus</option>
-				  	<option value="B">Bellevue Campus</option>
-				</select>
-				<!-- <label>Secondary Campus:</label>
-				<select class="form-control" id="scampus">
-				    <option value="N">North Campus</option>
-				 	<option value="W">East Campus</option>
-				 	<option value="E">West Campus</option>
-				  	<option value="B">Bellevue Campus</option>
-				</select> -->
-				<label>Date:</label><br/>
-				<input type="date" name="day" id="date"></input><br/>
-				<label>Time:</label><br/>
-				<select name="ptime" form="ptime" id="ptime">
-				 	<option value=0>11-12</option>
-				 	<option value=1>12-1</option>
-				 	<option value=2>1-2</option>
-				</select><br/>
-				<!-- <label>Secondary Time:</label><br/>
-				<select name="stime" form="stime" id="stime">
-				 	<option value=0>11-12</option>
-				 	<option value=1>12-1</option>
-				 	<option value=2>1-2</option>
-				</select>  -->
-				<br/><br/>
-				<button class="btn btn-lg btn-primary btn-block" type="submit" id="reserve">Find Me A Buddy!</button>
-			</form>
+		<div class="container text-aligned" id="about">
+			<h3>Welcome to LunchBuddy</h3>
+			<p>LunchBuddy is a project from Microsoft's 2017 OneWeek hackathon. As all new employees, we wanted to create an app that would help Microsoft employees meet each other during lunch. Employees can sign up with their Micorosft emails and choose a desired time and campus to meet. We then place employees into groups with sizes between 2 - 6 people. 
+				While we thought this would help new employees, it's not just for those who have recently completed their NEO
 		</div>
 	</body>
 </html>

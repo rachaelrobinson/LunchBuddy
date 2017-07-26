@@ -164,6 +164,9 @@ def profile():
 	# #display info from registration db, along w/ scheduled dates
 	# # username is just email
 	# pass
+@app.route('/about')
+def about():
+	return render_template("about.html")
 
 @app.route('/lunchform', methods=['POST'])
 def lunchImport():

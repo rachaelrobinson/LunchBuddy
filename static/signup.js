@@ -25,7 +25,7 @@ $(document).ready(function(){
                 // },
                 success: function(result) {
                     if(result[0].status == 200){
-                    window.location.href = "/reserve"
+                        window.location.href = "/reserve"
                     }
                     else if (result[0].status == 400){
                         alert("Oops something went wrong! We could not make you an account.");
