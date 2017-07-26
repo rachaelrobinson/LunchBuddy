@@ -196,15 +196,18 @@ def lunchImport():
         flash('Missing fields!')
         return jsonify([{'status':400}])
 
-def sendEmail(buddies, place, time): 
-	#TODO: get all the emails from the buddies
-	EmailMessage 
-	EmailMessage = request.form['message']
-	msg = Message("You've got buddies for lunch!", sender=('The OurHouse Team', 
-	'comp120frhj@gmail.com'), recipients=[LandlordEmail])
-	msg.html = render_template('Hybrid/stationery-hybrid.html', useremail=UserEmail, emailmessage=EmailMessage, firstname=LandlordFName)
-	mail.send(msg)
-	return "Sent"
+# def sendEmail(buddies, place, time): 
+# 	#TODO: get all the emails from the buddies
+		# create an email account for the application and add that to the env 
+		# snag all the emails for everyone in the lunch group
+		# creat a message and send to everyone telling them when and where their lunch is 
+
+# 	EmailMessage = request.form['message']
+# 	msg = Message("You've got buddies for lunch!", sender=('<Title>', 
+# 	'<email>'), recipients=[<users emails>])
+# 	msg.html = render_template('Hybrid/stationery-hybrid.html', useremail=UserEmail, emailmessage=EmailMessage, firstname=<lunch buddies?>)
+# 	mail.send(msg)
+# 	return "Sent"
 
 if __name__ == "__main__":
     app.secret_key = os.urandom(12)
