@@ -22,7 +22,9 @@ Note: This project is done using Python 2.7.13
 
 5. This application uses MongodDB as the database. To start a MongoDB server locally using homebrew, open an instance of terminal and run `brew services start mongodb` and then run `mongo`. 
 
-5. To start the app locally, open another instance of terminal and run `python server.py`. 
+6. To start the app locally, open another instance of terminal and run `python server.py`. 
+
+7. To stop the mongo server, `ctrl+c` out of the shell and then run `brew services stop mongodb`
 
 Notes:
 

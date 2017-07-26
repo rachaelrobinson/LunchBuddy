@@ -139,32 +139,20 @@ def logout():
 @app.route('/profile')
 def profile():
 	print "YA GOT IT"
-	#dummy data to test profiles
 	email = 'rachael@mcrsft.com'
-	# reservations = {{'reservation':{'info':'July 25th, 1-2pm, North Campus', 'status':'scheduled'}}, {'reservation':{'info':'July 30th, 1-2pm, North Campus', 'status':'pending'}}}
 	name = 'Rachael_Robinson'
-	person = {'name': name, 'email': email}
-	print person
+	user = mongo1.db.users.find_one(username)
+	if user.m_id != None:
+		meeting = mongo1.db.meetings.find_one(user.m_id)
+		person = {'name': name, 'email': email, 'meeting':meeting}
+	else:
+		person = {'name': name, 'email': email, 'meeting':''}
 	#TODO: send username
 	return render_template("profile.html", user=person)
 	#display info from registration db, along w/ scheduled dates
 	# username is just email
 	pass
-	# if not session.get('logged_in') or not session.get('user'):
-	# 	return redirect(url_for('home'))
-	# if session.get('user') != username:
-	# 	return redirect(url_for('home'))
-	# else:
-	# 	print "YA GOT IT"
-	# 	#dummy data to test profiles
-	# 	email = 'rachael@mcrsft.com'
-	# 	reservations = [{reservation:'July 25th, 1-2pm, North Campus', status:'scheduled'}, {reservation:'July 30th, 1-2pm, West Campus', status:'pending'}]
-	# 	name = 'rachaelrobinson'
-	# 	#TODO: send username
-	# 	return render_template("profile.html", email=email, reservations=reservations, name=name)
-	# #display info from registration db, along w/ scheduled dates
-	# # username is just email
-	# pass
+
 @app.route('/about')
 def about():
 	return render_template("about.html")
@@ -199,7 +187,6 @@ def saveTimeslot():
         flash('Missing fields!')
         return jsonify([{'status':400}])
 
-<<<<<<< HEAD
 # def sendEmail(buddies, place, time): 
 # 	#TODO: get all the emails from the buddies
 		# create an email account for the application and add that to the env 
@@ -212,7 +199,7 @@ def saveTimeslot():
 # 	msg.html = render_template('Hybrid/stationery-hybrid.html', useremail=UserEmail, emailmessage=EmailMessage, firstname=<lunch buddies?>)
 # 	mail.send(msg)
 # 	return "Sent"
-=======
+
 # to be run periodically, not a route call
 def matchBuddies(date):
     # go through in each campus + time
@@ -239,7 +226,7 @@ def matchBuddies(date):
                     
                     # go through each user and insert a meeting containing the list of people
                     for i in range(len(matchedUsers)):
-                        data = { '_id' : id, 'users' : matchedUsers[i] }
+                        data = { '_id' : id+i, 'users' : matchedUsers[i] }
                         m_id = mongo1.db.meetings.insert_one(data)
                         # update user with the current m_id
                         for username in matchedUsers[i]:
@@ -271,7 +258,6 @@ def initUserArr(count):
     for i in range(count):
         arr.append([])
     return arr
->>>>>>> a465b002074ce33bfcf65e715637f78568384ef8
 
 if __name__ == "__main__":
     app.secret_key = os.urandom(12)
