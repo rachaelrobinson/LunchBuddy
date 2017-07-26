@@ -4,6 +4,7 @@ Meeting new people for lunch has never been this easy!
 
 ##Welcome to LunchBuddy
 Lunch Buddy is a Flask web application created during Microsoft's OneWeek Hackathon. This web app is intended to help both new employees and and existing ones meet new people. Employees can sign up for an account with their Microsoft email. Once an employee has a profile, they can fill out a form with the date they would like to go out to lunch, their preferred and secondary times, and their top 3 choices for which campus they would like to eat on. Once that's done, LunchBuddy puts together groups of people and alerts them which group they are in and how to get in contact with each other. 
+
 ### Getting started
 Note: This project is done using Python 2.7.13
 
@@ -21,7 +22,18 @@ Note: This project is done using Python 2.7.13
 
 5. To start the app locally, run `python server.py`. 
 
+Notes:
+
 ### Packages, APIs, Dependencies
 Python 2.7.13 <br />
+blinker==1.4 <br/>
+click==6.7 <br/>
+Flask==0.12.2 <br/>
+Flask-Mail==0.9.1 <br/>
+Flask-PyMongo==0.5.1 <br/>
+itsdangerous==0.24 <br/>
+Jinja2==2.9.6 <br/>
+MarkupSafe==1.0 <br/>
+pymongo==3.4.0 <br/>
+Werkzeug==0.12.2 <br/>
 =======
-html files in templates right now

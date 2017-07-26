@@ -1,6 +1,7 @@
 from flask import Flask
 from flask import Flask, flash, redirect, render_template, request, session, abort, jsonify, url_for
 from flask_pymongo import PyMongo
+from flask_mail import Message, Mail
 import os
 app = Flask(__name__)
 with app.app_context():
@@ -8,7 +9,7 @@ with app.app_context():
     app.config['MONGO_DBNAME'] = 'users'
     app.config['MONGO2_DBNAME'] = 'timeslots'
     mongo2 = PyMongo(app, config_prefix='MONGO2')
-
+mail = Mail()
 """
 Region:
 W - (Redmond-West)
@@ -194,6 +195,16 @@ def lunchImport():
     else:
         flash('Missing fields!')
         return jsonify([{'status':400}])
+
+def sendEmail(buddies, place, time): 
+	#TODO: get all the emails from the buddies
+	EmailMessage 
+	EmailMessage = request.form['message']
+	msg = Message("You've got buddies for lunch!", sender=('The OurHouse Team', 
+	'comp120frhj@gmail.com'), recipients=[LandlordEmail])
+	msg.html = render_template('Hybrid/stationery-hybrid.html', useremail=UserEmail, emailmessage=EmailMessage, firstname=LandlordFName)
+	mail.send(msg)
+	return "Sent"
 
 if __name__ == "__main__":
     app.secret_key = os.urandom(12)
