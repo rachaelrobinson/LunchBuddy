@@ -18,9 +18,11 @@ Note: This project is done using Python 2.7.13
 
     (venv) Foo-MacBook-Pro-5:MyFolder Foo$
 
-5b. To install the necessary dependencies, while your venv is running, locate the file requirements.txt, and run `pip install -r requirements.txt`. This will deploy to localhost :5000.
+4b. To install the necessary dependencies, while your venv is running, locate the file requirements.txt, and run `pip install -r requirements.txt`. This will deploy to localhost :5000.
 
-5. To start the app locally, run `python server.py`. 
+5. This application uses MongodDB as the database. To start a MongoDB server locally using homebrew, open an instance of terminal and run `brew services start mongodb` and then run `mongo`. 
+
+5. To start the app locally, open another instance of terminal and run `python server.py`. 
 
 Notes:
 
